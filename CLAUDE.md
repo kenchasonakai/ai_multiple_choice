@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an AI-powered multiple choice examination system with a Rails 8 API backend and Next.js 15 frontend. The Rails app uses the module name `NeoMetroExam` and is configured in API-only mode.
+This is an AI-powered multiple choice examination system with a Rails 8 API backend and Next.js 15 frontend. The Rails app uses the module name `AiMultipleChoice` and is configured in API-only mode.
 
 ## Development Commands
 
@@ -40,10 +40,26 @@ npm run lint               # ESLint checking
 - **Next.js 15**: App Router with React 19 and TypeScript
 - **Styling**: Tailwind CSS 4.x
 - **Fonts**: Geist Sans and Geist Mono optimized
-- **Path Aliases**: `@/*` maps to `./src/*`
+- **Path Aliases**: `@/*` maps to `./*` (frontend root)
+
+### Directory Structure
+```
+frontend/
+├── app/                    # App Router pages
+├── components/             # Shared components
+│   ├── ui/                # Basic UI components
+│   └── layout/            # Layout components
+├── lib/                   # External library configs
+├── hooks/                 # Custom hooks
+├── services/              # API services
+├── types/                 # TypeScript definitions
+└── utils/                 # Utility functions
+```
 
 ### Current State
-Both Rails and Next.js are in initial boilerplate state. Rails has only a health check endpoint (`/up`). Frontend contains default create-next-app content.
+- Rails: API-only with health check endpoint (`/up`)
+- Frontend: Base structure established with shared utilities
+- API client and common types configured
 
 ## Development Workflow
 
