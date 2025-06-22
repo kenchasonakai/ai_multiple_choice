@@ -6,14 +6,7 @@ import { QuestionCard } from "@/components/exam/question-card"
 import { QuestionOptions } from "@/components/exam/question-options"
 import { ReasoningInput } from "@/components/exam/reasoning-input"
 import { SubmitActions } from "@/components/exam/submit-actions"
-import { Question } from "@/types/exam"
-
-interface SubjectPageContentProps {
-  yearDisplay: string
-  subjectDisplay: { name: string; description: string }
-  question: Question
-  totalQuestions: number
-}
+import { SubjectPageContentProps } from "@/types/components"
 
 export function SubjectPageContent({ 
   yearDisplay, 

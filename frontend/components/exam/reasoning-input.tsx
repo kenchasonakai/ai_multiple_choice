@@ -1,11 +1,6 @@
 import { Label } from "@/components/ui/label"
 import { AutoResizeTextarea } from "@/components/ui/auto-resize-textarea"
-
-interface ReasoningInputProps {
-  reasoning: string
-  onReasoningChange: (reasoning: string) => void
-  isSubmitted: boolean
-}
+import { ReasoningInputProps } from "@/types/components"
 
 export function ReasoningInput({
   reasoning,

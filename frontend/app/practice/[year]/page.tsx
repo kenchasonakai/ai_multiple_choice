@@ -1,11 +1,7 @@
 import { Header } from "@/components/layout/header"
 import { notFound } from "next/navigation"
-
-interface YearPageProps {
-  params: Promise<{
-    year: string
-  }>
-}
+import Link from "next/link"
+import { YearPageProps } from "@/types/components"
 
 const validYears = [
   '2023',
@@ -46,7 +42,7 @@ export default async function YearPage({ params }: YearPageProps) {
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-              <a href={`/practice/${year}/subject-a`} 
+              <Link href={`/practice/${year}/subject-a`} 
                  className="border border-border rounded-lg p-6 hover:bg-accent transition-colors block">
                 <h3 className="text-lg font-semibold mb-2">
                   科目A
@@ -54,9 +50,9 @@ export default async function YearPage({ params }: YearPageProps) {
                 <p className="text-sm text-muted-foreground">
                   {isNewFormat ? '多肢選択式' : '午前試験（多肢選択式）'}
                 </p>
-              </a>
+              </Link>
               
-              <a href={`/practice/${year}/subject-b`} 
+              <Link href={`/practice/${year}/subject-b`} 
                  className="border border-border rounded-lg p-6 hover:bg-accent transition-colors block">
                 <h3 className="text-lg font-semibold mb-2">
                   科目B
@@ -64,7 +60,7 @@ export default async function YearPage({ params }: YearPageProps) {
                 <p className="text-sm text-muted-foreground">
                   {isNewFormat ? '多肢選択式' : '午後試験（多肢選択式）'}
                 </p>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

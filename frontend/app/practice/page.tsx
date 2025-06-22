@@ -1,4 +1,5 @@
 import { Header } from "@/components/layout/header"
+import Link from "next/link"
 
 export default function PracticePage() {
   return (
@@ -22,14 +23,14 @@ export default function PracticePage() {
                 <h3 className="text-lg font-semibold mb-2">2023年度</h3>
                 <p className="text-sm text-muted-foreground mb-4">科目A・科目B</p>
                 <div className="space-y-2">
-                  <a href="/practice/2023/subject-a" 
+                  <Link href="/practice/2023/subject-a" 
                      className="block text-sm text-primary hover:underline">
                     2023年度 科目A
-                  </a>
-                  <a href="/practice/2023/subject-b" 
+                  </Link>
+                  <Link href="/practice/2023/subject-b" 
                      className="block text-sm text-primary hover:underline">
                     2023年度 科目B
-                  </a>
+                  </Link>
                 </div>
               </div>
               
@@ -37,14 +38,14 @@ export default function PracticePage() {
                 <h3 className="text-lg font-semibold mb-2">2022年度</h3>
                 <p className="text-sm text-muted-foreground mb-4">科目A・科目B</p>
                 <div className="space-y-2">
-                  <a href="/practice/2022/subject-a" 
+                  <Link href="/practice/2022/subject-a" 
                      className="block text-sm text-primary hover:underline">
                     2022年度 科目A
-                  </a>
-                  <a href="/practice/2022/subject-b" 
+                  </Link>
+                  <Link href="/practice/2022/subject-b" 
                      className="block text-sm text-primary hover:underline">
                     2022年度 科目B
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

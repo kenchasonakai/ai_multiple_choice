@@ -1,9 +1,5 @@
 import { cn } from "@/lib/utils"
-
-interface LogoProps {
-  className?: string
-  showText?: boolean
-}
+import { LogoProps } from "@/types/components"
 
 export function Logo({ className, showText = true }: LogoProps) {
   return (

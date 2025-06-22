@@ -1,12 +1,5 @@
 import { Button } from "@/components/ui/button"
-
-interface SubmitActionsProps {
-  selectedAnswer: string
-  reasoning: string
-  isSubmitted: boolean
-  onSubmit: () => void
-  onReset: () => void
-}
+import { SubmitActionsProps } from "@/types/components"
 
 export function SubmitActions({
   selectedAnswer,

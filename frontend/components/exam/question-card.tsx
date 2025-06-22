@@ -1,13 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle } from "lucide-react"
-import { Question } from "@/types/exam"
 import { parseCodeBlocks } from "@/lib/utils"
-
-interface QuestionCardProps {
-  question: Question
-  isSubmitted: boolean
-  children: React.ReactNode
-}
+import { QuestionCardProps } from "@/types/components"
 
 export function QuestionCard({ question, isSubmitted, children }: QuestionCardProps) {
   return (

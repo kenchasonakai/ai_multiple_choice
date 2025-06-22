@@ -2,21 +2,9 @@ import { Badge } from "@/components/ui/badge"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { Logo } from "@/components/ui/logo"
 import Link from "next/link"
-
-interface BadgeItem {
-  label: string
-  variant?: "default" | "secondary" | "destructive" | "outline"
-}
-
-interface HeaderProps {
-  title?: string
-  subtitle?: string
-  badges?: BadgeItem[]
-  showThemeToggle?: boolean
-}
+import { HeaderProps } from "@/types/components"
 
 export function Header({ 
-  title, 
   subtitle, 
   badges = [], 
   showThemeToggle = true 

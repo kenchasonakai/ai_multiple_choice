@@ -1,12 +1,6 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-
-interface QuestionOptionsProps {
-  options: string[]
-  selectedAnswer: string
-  onAnswerChange: (answer: string) => void
-  isSubmitted: boolean
-}
+import { QuestionOptionsProps } from "@/types/components"
 
 export function QuestionOptions({
   options,

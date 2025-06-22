@@ -1,14 +1,7 @@
-import { Question } from "@/types/exam"
 import { notFound } from "next/navigation"
 import { SubjectPageContent } from "./subject-page-content"
 import { fetchQuestions } from "@/lib/sample-data"
-
-interface SubjectPageProps {
-  params: Promise<{
-    year: string
-    subject: string
-  }>
-}
+import { SubjectPageProps } from "@/types/components"
 
 const validYears = [
   '2023',
