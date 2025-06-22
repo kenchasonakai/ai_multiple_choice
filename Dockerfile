@@ -2,8 +2,8 @@
 # check=error=true
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t neo_metro_exam .
-# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name neo_metro_exam neo_metro_exam
+# docker build -t ai_multiple_choice .
+# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name ai_multiple_choice ai_multiple_choice
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
