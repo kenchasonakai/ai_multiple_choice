@@ -137,28 +137,102 @@ export const sampleQuestionsData: Record<string, Record<string, Question[]>> = {
 export async function fetchQuestions(year: string, subject: string): Promise<Question[]> {
   // 実際のAPI呼び出しの代わりにサンプルデータを返す
   // 実装時は以下のようなAPI呼び出しに置き換える:
-  // const response = await fetch(`/api/questions/${year}/${subject}`)
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/questions?year=${year}&subject=${subject}`)
+  // if (!response.ok) {
+  //   if (response.status === 404) throw new Error('Not Found')
+  //   throw new Error('API Error')
+  // }
   // return response.json()
+  //
+  // 期待するAPIレスポンス形式:
+  // GET /api/v1/questions?year=2023&subject=subject-a
+  // Status: 200 OK
+  // {
+  //   "data": [
+  //     {
+  //       "id": 1,
+  //       "text": "データベースの正規化に関する説明として、最も適切なものはどれか。",
+  //       "options": [
+  //         "第1正規形は、繰り返し項目を排除した形である",
+  //         "第2正規形は、部分関数従属を排除した形である",
+  //         "第3正規形は、推移関数従属を排除した形である",
+  //         "すべての正規形において、データの冗長性は完全に排除される"
+  //       ],
+  //       "correct_answer": 2,
+  //       "category": "データベース",
+  //       "difficulty": "標準",
+  //       "created_at": "2023-01-01T00:00:00Z",
+  //       "updated_at": "2023-01-01T00:00:00Z"
+  //     }
+  //   ],
+  //   "meta": {
+  //     "year": "2023",
+  //     "subject": "subject-a",
+  //     "total_count": 20,
+  //     "current_page": 1,
+  //     "per_page": 20
+  //   }
+  // }
+  //
+  // エラーレスポンス:
+  // Status: 404 Not Found
+  // {
+  //   "error": {
+  //     "code": "not_found",
+  //     "message": "Questions not found for year: 2020, subject: subject-a"
+  //   }
+  // }
+  
+  // APIレスポンスをシミュレート（少し遅延を入れる）
+  await new Promise(resolve => setTimeout(resolve, 100))
   
   // サンプルデータから該当する問題を取得
   const questionsForYear = sampleQuestionsData[year]
   if (!questionsForYear) {
-    return []
+    throw new Error('Not Found')
   }
   
   const questionsForSubject = questionsForYear[subject]
   if (!questionsForSubject) {
-    return []
+    throw new Error('Not Found')
   }
-  
-  // APIレスポンスをシミュレート（少し遅延を入れる）
-  await new Promise(resolve => setTimeout(resolve, 100))
   
   return questionsForSubject
 }
 
 // 特定の問題を取得する関数
 export async function fetchQuestion(year: string, subject: string, questionId: number): Promise<Question | null> {
+  // 実装時は以下のようなAPI呼び出しに置き換える:
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/questions/${questionId}?year=${year}&subject=${subject}`)
+  // if (!response.ok) {
+  //   if (response.status === 404) return null
+  //   throw new Error('API Error')
+  // }
+  // const data = await response.json()
+  // return data.data
+  //
+  // 期待するAPIレスポンス形式:
+  // GET /api/v1/questions/1?year=2023&subject=subject-a
+  // Status: 200 OK  
+  // {
+  //   "data": {
+  //     "id": 1,
+  //     "text": "データベースの正規化に関する説明として、最も適切なものはどれか。",
+  //     "options": [
+  //       "第1正規形は、繰り返し項目を排除した形である",
+  //       "第2正規形は、部分関数従属を排除した形である",
+  //       "第3正規形は、推移関数従属を排除した形である",
+  //       "すべての正規形において、データの冗長性は完全に排除される"
+  //     ],
+  //     "correct_answer": 2,
+  //     "category": "データベース",
+  //     "difficulty": "標準",
+  //     "explanation": "正規化は...", // 解説（任意）
+  //     "created_at": "2023-01-01T00:00:00Z",
+  //     "updated_at": "2023-01-01T00:00:00Z"
+  //   }
+  // }
+
   const questions = await fetchQuestions(year, subject)
   return questions.find(q => q.id === questionId) || null
 }

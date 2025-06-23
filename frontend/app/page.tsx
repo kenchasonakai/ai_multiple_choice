@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
 export default function Home() {
-  // ルートページから練習ページにリダイレクト
+  // NOTE: 後々ルートページを作成するため、今はルートページから練習ページにリダイレクトしている
   redirect('/practice')
 }
