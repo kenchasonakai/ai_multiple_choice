@@ -9,7 +9,7 @@ import { SubmitActions } from "@/components/exam/submit-actions"
 import { SubjectPageContentProps } from "@/types/components"
 
 export function SubjectPageContent({ 
-  yearDisplay, 
+  periodDisplay, 
   subjectDisplay, 
   question,
   totalQuestions
@@ -36,7 +36,7 @@ export function SubjectPageContent({
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-7xl mx-auto">
         <Header 
-          subtitle={`${yearDisplay} ${subjectDisplay.name} (全${totalQuestions}問)`}
+          subtitle={`${periodDisplay} ${subjectDisplay.name} (全${totalQuestions}問)`}
           badges={[
             { label: question.category, variant: "secondary" },
             { label: question.difficulty, variant: "outline" }

@@ -5,8 +5,7 @@ export const sampleExamSessions: Record<string, ExamSession> = {
   "2023-spring-subject-a": {
     slug: "2023-spring-subject-a",
     year: "2023",
-    year_display: "2023年度",
-    period: "spring",
+    period: "2023年度春期",
     subject: {
       slug: "subject-a",
       name: "科目A",
@@ -57,8 +56,7 @@ export const sampleExamSessions: Record<string, ExamSession> = {
   "2023-spring-subject-b": {
     slug: "2023-spring-subject-b",
     year: "2023",
-    year_display: "2023年度",
-    period: "spring",
+    period: "2023年度春期",
     subject: {
       slug: "subject-b",
       name: "科目B",
@@ -122,8 +120,7 @@ export const sampleExamSessions: Record<string, ExamSession> = {
   "2022-spring-subject-a": {
     slug: "2022-spring-subject-a",
     year: "2022",
-    year_display: "2022年度",
-    period: "spring",
+    period: "2022年度春期",
     subject: {
       slug: "subject-a",
       name: "科目A",
@@ -148,8 +145,7 @@ export const sampleExamSessions: Record<string, ExamSession> = {
   "2022-spring-subject-b": {
     slug: "2022-spring-subject-b",
     year: "2022",
-    year_display: "2022年度",
-    period: "spring",
+    period: "2022年度春期",
     subject: {
       slug: "subject-b",
       name: "科目B",
@@ -192,8 +188,7 @@ export async function fetchQuestionsBySlug(slug: string): Promise<ExamSession> {
   //   "data": {
   //     "slug": "2023-spring-subject-a",
   //     "year": "2023",
-  //     "year_display": "2023年度",
-  //     "period": "spring",
+  //     "period": "2023年度春期",
   //     "subject": {
   //       "slug": "subject-a",
   //       "name": "科目A",

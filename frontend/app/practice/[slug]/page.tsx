@@ -20,7 +20,7 @@ export default async function SlugPage({ params }: SlugPageProps) {
 
   return (
     <SubjectPageContent
-      yearDisplay={examSession.year_display}
+      periodDisplay={examSession.period}
       subjectDisplay={examSession.subject}
       question={currentQuestion}
       totalQuestions={examSession.questions.length}

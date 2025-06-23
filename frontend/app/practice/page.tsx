@@ -3,14 +3,12 @@ import Link from "next/link"
 import { sampleExamSessions } from "@/lib/sample-data"
 
 export default function PracticePage() {
-  // サンプルデータから年度・期別にグループ化
+  // サンプルデータから期別にグループ化
   const examSessions = Object.values(sampleExamSessions)
   const groupedSessions = examSessions.reduce((acc, session) => {
-    const key = `${session.year}-${session.period}`
+    const key = session.period
     if (!acc[key]) {
       acc[key] = {
-        year: session.year,
-        year_display: session.year_display,
         period: session.period,
         sessions: []
       }
@@ -18,8 +16,6 @@ export default function PracticePage() {
     acc[key].sessions.push(session)
     return acc
   }, {} as Record<string, {
-    year: string
-    year_display: string
     period: string
     sessions: typeof examSessions
   }>)
@@ -44,9 +40,9 @@ export default function PracticePage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {periods.map((period) => (
-                <div key={`${period.year}-${period.period}`} className="border border-border rounded-lg p-6 hover:bg-accent transition-colors">
+                <div key={period.period} className="border border-border rounded-lg p-6 hover:bg-accent transition-colors">
                   <h3 className="text-lg font-semibold mb-2">
-                    {period.year_display}{period.period === 'spring' ? '春期' : '秋期'}
+                    {period.period}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     {period.sessions.map(s => s.subject.name).join('・')}
@@ -58,7 +54,7 @@ export default function PracticePage() {
                         href={`/practice/${session.slug}`} 
                         className="block text-sm text-primary hover:underline"
                       >
-                        {session.year_display}{session.period === 'spring' ? '春期' : '秋期'} {session.subject.name}
+                        {session.period} {session.subject.name}
                       </Link>
                     ))}
                   </div>

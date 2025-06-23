@@ -16,7 +16,6 @@ export interface SubjectInfo {
 export interface ExamSession {
   slug: string
   year: string
-  year_display: string
   period: string
   subject: SubjectInfo
   questions: Question[]

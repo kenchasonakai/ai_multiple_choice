@@ -44,7 +44,7 @@ export interface SubmitActionsProps {
 
 // Page関連
 export interface SubjectPageContentProps {
-  yearDisplay: string
+  periodDisplay: string
   subjectDisplay: SubjectInfo
   question: Question
   totalQuestions: number
