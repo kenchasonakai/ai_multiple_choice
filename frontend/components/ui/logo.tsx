@@ -103,7 +103,7 @@ export function Logo({ className, showText = true }: LogoProps) {
       {/* テキスト部分 */}
       {showText && (
         <span className="font-bold text-xl text-foreground">
-          基本情報<span className="text-orange-500 font-extrabold">AI</span><span className="text-foreground font-normal">m</span>
+          基本情報<span className="text-orange-500 font-extrabold">AI</span><span className="text-foreground font-normal">mate</span>
         </span>
       )}
     </div>
@@ -119,7 +119,7 @@ export function LogoIcon({ className }: { className?: string }) {
 export function LogoText({ className }: { className?: string }) {
   return (
     <span className={cn("font-bold text-xl text-foreground", className)}>
-      基本情報<span className="text-orange-500 font-extrabold">AI</span><span className="text-foreground font-normal">m</span>
+      基本情報<span className="text-orange-500 font-extrabold">AI</span><span className="text-foreground font-normal">mate</span>
     </span>
   )
 }
