@@ -7,3 +7,18 @@ export interface Question {
   difficulty: string
 }
 
+export interface SubjectInfo {
+  slug: string
+  name: string
+  description: string
+}
+
+export interface ExamSession {
+  slug: string
+  year: string
+  year_display: string
+  period: string
+  subject: SubjectInfo
+  questions: Question[]
+}
+

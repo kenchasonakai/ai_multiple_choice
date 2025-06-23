@@ -1,9 +1,18 @@
-import { Question } from "@/types/exam"
+import { Question, ExamSession } from "@/types/exam"
 
-// 実際のAPIから取得する形式を想定したサンプルデータ
-export const sampleQuestionsData: Record<string, Record<string, Question[]>> = {
-  "2023": {
-    "subject-a": [
+// スラグベースのサンプルデータ
+export const sampleExamSessions: Record<string, ExamSession> = {
+  "2023-spring-subject-a": {
+    slug: "2023-spring-subject-a",
+    year: "2023",
+    year_display: "2023年度",
+    period: "spring",
+    subject: {
+      slug: "subject-a",
+      name: "科目A",
+      description: "多肢選択式"
+    },
+    questions: [
       {
         id: 1,
         text: "データベースの正規化に関する説明として、最も適切なものはどれか。",
@@ -43,8 +52,19 @@ export const sampleQuestionsData: Record<string, Record<string, Question[]>> = {
         category: "アルゴリズム",
         difficulty: "標準",
       }
-    ],
-    "subject-b": [
+    ]
+  },
+  "2023-spring-subject-b": {
+    slug: "2023-spring-subject-b",
+    year: "2023",
+    year_display: "2023年度",
+    period: "spring",
+    subject: {
+      slug: "subject-b",
+      name: "科目B",
+      description: "多肢選択式"
+    },
+    questions: [
       {
         id: 4,
         text: "次のプログラムを実行したとき、変数xの値はいくつになるか。\n\n```\nint x = 0;\nfor (int i = 1; i <= 5; i++) {\n    x += i * 2;\n}\n```",
@@ -99,8 +119,17 @@ export const sampleQuestionsData: Record<string, Record<string, Question[]>> = {
       }
     ]
   },
-  "2022": {
-    "subject-a": [
+  "2022-spring-subject-a": {
+    slug: "2022-spring-subject-a",
+    year: "2022",
+    year_display: "2022年度",
+    period: "spring",
+    subject: {
+      slug: "subject-a",
+      name: "科目A",
+      description: "多肢選択式"
+    },
+    questions: [
       {
         id: 8,
         text: "CPUのキャッシュメモリに関する説明として、最も適切なものはどれか。",
@@ -114,8 +143,19 @@ export const sampleQuestionsData: Record<string, Record<string, Question[]>> = {
         category: "コンピュータシステム",
         difficulty: "基本",
       }
-    ],
-    "subject-b": [
+    ]
+  },
+  "2022-spring-subject-b": {
+    slug: "2022-spring-subject-b",
+    year: "2022",
+    year_display: "2022年度",
+    period: "spring",
+    subject: {
+      slug: "subject-b",
+      name: "科目B",
+      description: "多肢選択式"
+    },
+    questions: [
       {
         id: 9,
         text: "次のSQL文の実行結果として正しいものはどれか。\n\n```sql\nSELECT COUNT(*) FROM employees WHERE salary > 500000;\n```",
@@ -133,44 +173,54 @@ export const sampleQuestionsData: Record<string, Record<string, Question[]>> = {
   }
 }
 
-// API呼び出しをシミュレートする関数（実際はRails APIを呼び出す）
-export async function fetchQuestions(year: string, subject: string): Promise<Question[]> {
+// スラグからExamSessionを取得する関数
+export async function fetchQuestionsBySlug(slug: string): Promise<ExamSession> {
   // 実際のAPI呼び出しの代わりにサンプルデータを返す
   // 実装時は以下のようなAPI呼び出しに置き換える:
-  // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/questions?year=${year}&subject=${subject}`)
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/sessions/${slug}`)
   // if (!response.ok) {
   //   if (response.status === 404) throw new Error('Not Found')
   //   throw new Error('API Error')
   // }
-  // return response.json()
+  // const data = await response.json()
+  // return data.data
   //
   // 期待するAPIレスポンス形式:
-  // GET /api/v1/questions?year=2023&subject=subject-a
+  // GET /api/v1/sessions/2023-spring-subject-a
   // Status: 200 OK
   // {
-  //   "data": [
-  //     {
-  //       "id": 1,
-  //       "text": "データベースの正規化に関する説明として、最も適切なものはどれか。",
-  //       "options": [
-  //         "第1正規形は、繰り返し項目を排除した形である",
-  //         "第2正規形は、部分関数従属を排除した形である",
-  //         "第3正規形は、推移関数従属を排除した形である",
-  //         "すべての正規形において、データの冗長性は完全に排除される"
-  //       ],
-  //       "correct_answer": 2,
-  //       "category": "データベース",
-  //       "difficulty": "標準",
-  //       "created_at": "2023-01-01T00:00:00Z",
-  //       "updated_at": "2023-01-01T00:00:00Z"
-  //     }
-  //   ],
-  //   "meta": {
+  //   "data": {
+  //     "slug": "2023-spring-subject-a",
   //     "year": "2023",
-  //     "subject": "subject-a",
-  //     "total_count": 20,
-  //     "current_page": 1,
-  //     "per_page": 20
+  //     "year_display": "2023年度",
+  //     "period": "spring",
+  //     "subject": {
+  //       "slug": "subject-a",
+  //       "name": "科目A",
+  //       "description": "多肢選択式"
+  //     },
+  //     "questions": [
+  //       {
+  //         "id": 1,
+  //         "text": "データベースの正規化に関する説明として、最も適切なものはどれか。",
+  //         "options": [
+  //           "第1正規形は、繰り返し項目を排除した形である",
+  //           "第2正規形は、部分関数従属を排除した形である",
+  //           "第3正規形は、推移関数従属を排除した形である",
+  //           "すべての正規形において、データの冗長性は完全に排除される"
+  //         ],
+  //         "correct_answer": 2,
+  //         "category": "データベース",
+  //         "difficulty": "標準",
+  //         "explanation": "正規化は...",
+  //         "created_at": "2023-01-01T00:00:00Z",
+  //         "updated_at": "2023-01-01T00:00:00Z"
+  //       }
+  //     ]
+  //   },
+  //   "meta": {
+  //     "total_questions": 20,
+  //     "current_question": 1
   //   }
   // }
   //
@@ -179,60 +229,42 @@ export async function fetchQuestions(year: string, subject: string): Promise<Que
   // {
   //   "error": {
   //     "code": "not_found",
-  //     "message": "Questions not found for year: 2020, subject: subject-a"
+  //     "message": "Exam session not found: 2020-spring-subject-a"
   //   }
   // }
   
   // APIレスポンスをシミュレート（少し遅延を入れる）
   await new Promise(resolve => setTimeout(resolve, 100))
   
-  // サンプルデータから該当する問題を取得
-  const questionsForYear = sampleQuestionsData[year]
-  if (!questionsForYear) {
+  // サンプルデータから該当するセッションを取得
+  const examSession = sampleExamSessions[slug]
+  if (!examSession) {
     throw new Error('Not Found')
   }
   
-  const questionsForSubject = questionsForYear[subject]
-  if (!questionsForSubject) {
+  return examSession
+}
+
+// 後方互換性のため、古い関数も残す（非推奨）
+export async function fetchQuestions(year: string, subject: string): Promise<Question[]> {
+  // 新しいslug形式に変換
+  const slug = `${year}-spring-${subject}`
+  try {
+    const examSession = await fetchQuestionsBySlug(slug)
+    return examSession.questions
+  } catch (error) {
     throw new Error('Not Found')
   }
-  
-  return questionsForSubject
 }
 
 // 特定の問題を取得する関数
 export async function fetchQuestion(year: string, subject: string, questionId: number): Promise<Question | null> {
-  // 実装時は以下のようなAPI呼び出しに置き換える:
-  // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/questions/${questionId}?year=${year}&subject=${subject}`)
-  // if (!response.ok) {
-  //   if (response.status === 404) return null
-  //   throw new Error('API Error')
-  // }
-  // const data = await response.json()
-  // return data.data
-  //
-  // 期待するAPIレスポンス形式:
-  // GET /api/v1/questions/1?year=2023&subject=subject-a
-  // Status: 200 OK  
-  // {
-  //   "data": {
-  //     "id": 1,
-  //     "text": "データベースの正規化に関する説明として、最も適切なものはどれか。",
-  //     "options": [
-  //       "第1正規形は、繰り返し項目を排除した形である",
-  //       "第2正規形は、部分関数従属を排除した形である",
-  //       "第3正規形は、推移関数従属を排除した形である",
-  //       "すべての正規形において、データの冗長性は完全に排除される"
-  //     ],
-  //     "correct_answer": 2,
-  //     "category": "データベース",
-  //     "difficulty": "標準",
-  //     "explanation": "正規化は...", // 解説（任意）
-  //     "created_at": "2023-01-01T00:00:00Z",
-  //     "updated_at": "2023-01-01T00:00:00Z"
-  //   }
-  // }
-
   const questions = await fetchQuestions(year, subject)
   return questions.find(q => q.id === questionId) || null
+}
+
+// スラグから特定の問題を取得する関数
+export async function fetchQuestionBySlug(slug: string, questionId: number): Promise<Question | null> {
+  const examSession = await fetchQuestionsBySlug(slug)
+  return examSession.questions.find(q => q.id === questionId) || null
 }

@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { Question } from "./exam"
+import { Question, SubjectInfo } from "./exam"
 
 // Badge関連
 export interface BadgeItem {
@@ -45,7 +45,7 @@ export interface SubmitActionsProps {
 // Page関連
 export interface SubjectPageContentProps {
   yearDisplay: string
-  subjectDisplay: { name: string; description: string }
+  subjectDisplay: SubjectInfo
   question: Question
   totalQuestions: number
 }
@@ -67,5 +67,11 @@ export interface SubjectPageProps {
   params: Promise<{
     year: string
     subject: string
+  }>
+}
+
+export interface SlugPageProps {
+  params: Promise<{
+    slug: string
   }>
 }

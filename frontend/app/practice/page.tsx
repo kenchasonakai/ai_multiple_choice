@@ -20,31 +20,31 @@ export default function PracticePage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="border border-border rounded-lg p-6 hover:bg-accent transition-colors">
-                <h3 className="text-lg font-semibold mb-2">2023年度</h3>
+                <h3 className="text-lg font-semibold mb-2">2023年度春期</h3>
                 <p className="text-sm text-muted-foreground mb-4">科目A・科目B</p>
                 <div className="space-y-2">
-                  <Link href="/practice/2023/subject-a" 
+                  <Link href="/practice/2023-spring-subject-a" 
                      className="block text-sm text-primary hover:underline">
-                    2023年度 科目A
+                    2023年度春期 科目A
                   </Link>
-                  <Link href="/practice/2023/subject-b" 
+                  <Link href="/practice/2023-spring-subject-b" 
                      className="block text-sm text-primary hover:underline">
-                    2023年度 科目B
+                    2023年度春期 科目B
                   </Link>
                 </div>
               </div>
               
               <div className="border border-border rounded-lg p-6 hover:bg-accent transition-colors">
-                <h3 className="text-lg font-semibold mb-2">2022年度</h3>
+                <h3 className="text-lg font-semibold mb-2">2022年度春期</h3>
                 <p className="text-sm text-muted-foreground mb-4">科目A・科目B</p>
                 <div className="space-y-2">
-                  <Link href="/practice/2022/subject-a" 
+                  <Link href="/practice/2022-spring-subject-a" 
                      className="block text-sm text-primary hover:underline">
-                    2022年度 科目A
+                    2022年度春期 科目A
                   </Link>
-                  <Link href="/practice/2022/subject-b" 
+                  <Link href="/practice/2022-spring-subject-b" 
                      className="block text-sm text-primary hover:underline">
-                    2022年度 科目B
+                    2022年度春期 科目B
                   </Link>
                 </div>
               </div>
