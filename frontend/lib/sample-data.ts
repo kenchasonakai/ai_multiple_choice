@@ -247,7 +247,7 @@ export async function fetchQuestions(year: string, subject: string): Promise<Que
   try {
     const examSession = await fetchQuestionsBySlug(slug)
     return examSession.questions
-  } catch (error) {
+  } catch {
     throw new Error('Not Found')
   }
 }

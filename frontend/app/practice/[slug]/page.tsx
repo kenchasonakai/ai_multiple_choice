@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
-import { SubjectPageContent } from "./subject-page-content"
+import { ExamProvider } from "@/contexts/exam-context"
+import { ExamContent } from "./exam-content"
 import { fetchQuestionsBySlug } from "@/lib/sample-data"
 import { SlugPageProps } from "@/types/components"
 
@@ -15,15 +16,9 @@ export default async function SlugPage({ params }: SlugPageProps) {
     notFound()
   }
 
-  // 最初の問題を表示（後で問題選択機能を追加予定）
-  const currentQuestion = examSession.questions[0]
-
   return (
-    <SubjectPageContent
-      periodDisplay={examSession.period}
-      subjectDisplay={examSession.subject}
-      question={currentQuestion}
-      totalQuestions={examSession.questions.length}
-    />
+    <ExamProvider examSession={examSession}>
+      <ExamContent />
+    </ExamProvider>
   )
 }
