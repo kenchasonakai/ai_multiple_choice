@@ -234,10 +234,9 @@ const questions = await response.json()
 ```ruby
 - id: bigint (primary key)
 - exam_session_id: bigint (foreign key)
-- text: text # 問題文
-- question_type: string # "multiple_choice" | "essay"
-- category: string # "データベース", "ネットワーク"
-- difficulty: string # "基本", "標準", "応用"
+- text: text (not null) # 問題文
+- question_type: string (not null) # "multiple_choice" | "essay"
+- category: string (not null) # カテゴリ（定数から選択）
 - created_at: datetime
 - updated_at: datetime
 ```
@@ -246,8 +245,8 @@ const questions = await response.json()
 ```ruby
 - id: bigint (primary key)
 - question_id: bigint (foreign key)
-- options: json # ["選択肢1", "選択肢2", "選択肢3", "選択肢4"]
-- correct_answer: integer # 0-3 (正解のインデックス)
+- options: json (not null) # ["選択肢1", "選択肢2", "選択肢3", "選択肢4"]
+- correct_answer: integer (not null) # 0-3 (正解のインデックス)
 - created_at: datetime
 - updated_at: datetime
 ```
@@ -256,11 +255,11 @@ const questions = await response.json()
 ```ruby
 - id: bigint (primary key)
 - question_id: bigint (foreign key)
-- answer_criteria: json # AI判定用の基準
-- sample_answers: json # 模範解答例
+- answer_criteria: json (not null) # AI判定用の基準
+- sample_answers: json (not null) # 模範解答例
 - evaluation_rubric: json # 評価観点
-- min_length: integer # 最小文字数
-- max_length: integer # 最大文字数
+- min_length: integer (default: 0) # 最小文字数
+- max_length: integer (default: 1000) # 最大文字数
 - created_at: datetime
 - updated_at: datetime
 ```
@@ -303,6 +302,28 @@ class EssayQuestion < ApplicationRecord
 end
 ```
 
+### カテゴリ分類
+
+基本情報技術者試験の出題範囲に基づいた定数カテゴリ：
+
+#### **基礎理論 (Fundamentals)**
+- 基礎理論, 離散数学, 応用数学
+
+#### **コンピュータシステム (Computer Systems)**  
+- コンピュータ構成要素, システム構成要素, ソフトウェア, ハードウェア
+
+#### **技術要素 (Technical Elements)**
+- データベース, ネットワーク, セキュリティ, ヒューマンインタフェース
+
+#### **開発技術 (Development)**
+- アルゴリズム, プログラミング, システム開発技術
+
+#### **マネジメント系 (Management)**
+- プロジェクトマネジメント, サービスマネジメント
+
+#### **ストラテジ系 (Strategy)**
+- システム戦略, 経営戦略, 企業と法務
+
 ### データ例
 
 #### **選択式問題**
@@ -311,8 +332,7 @@ end
   "question": {
     "text": "データベースの正規化について...",
     "question_type": "multiple_choice",
-    "category": "データベース",
-    "difficulty": "標準"
+    "category": "データベース"
   },
   "multiple_choice_question": {
     "options": [
@@ -332,8 +352,7 @@ end
   "question": {
     "text": "第三正規形について説明せよ",
     "question_type": "essay",
-    "category": "データベース", 
-    "difficulty": "応用"
+    "category": "データベース"
   },
   "essay_question": {
     "answer_criteria": {
@@ -368,7 +387,9 @@ end
 
 ### 設計のメリット
 
-1. **型安全性**: 選択式では`options`が必須、記述式では`answer_criteria`が必須
+1. **型安全性**: 選択式では4つの`options`が必須、記述式では`answer_criteria`が必須
 2. **拡張性**: 新しい問題タイプを追加しやすい
 3. **保守性**: 各問題タイプの責務が明確に分離
 4. **AI対応**: 記述式問題でのAI判定に必要な情報を構造化して保存
+5. **バリデーション**: 各種制約（選択肢数、文字数、正解インデックス等）をDB・モデルレベルで保証
+6. **インデックス最適化**: 検索頻度の高いフィールドに適切なインデックスを設定
