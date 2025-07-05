@@ -123,7 +123,7 @@ frontend/
 #### バックエンド連携
 - **API実装**: Rails側での問題データAPI
 - **認証システム**: ユーザー管理・学習履歴
-- **データベース設計**: 問題、ユーザー、学習記録のスキーマ
+- **データベース設計**: ✅ 完了（テーブル分割による選択式・記述式対応）
 
 #### 学習機能
 - **問題ナビゲーション**: 問題間の移動、進捗表示
@@ -212,3 +212,163 @@ const questions = await response.json()
 - URLに「基本情報」「基本情報技術者」キーワードを含む
 - メタデータの最適化（実装予定）
 - 構造化データの追加（実装予定）
+
+## Database Design
+
+### テーブル構造（分割設計）
+
+#### **exam_sessions** (試験セッション)
+```ruby
+- id: bigint (primary key)
+- slug: string (unique) # "2023-spring-subject-a"
+- year: string # "2023"
+- period: string # "2023年度春期"
+- subject_slug: string # "subject-a"
+- subject_name: string # "科目A"
+- subject_description: text # "多肢選択式"
+- created_at: datetime
+- updated_at: datetime
+```
+
+#### **questions** (問題 - 親テーブル)
+```ruby
+- id: bigint (primary key)
+- exam_session_id: bigint (foreign key)
+- text: text # 問題文
+- question_type: string # "multiple_choice" | "essay"
+- category: string # "データベース", "ネットワーク"
+- difficulty: string # "基本", "標準", "応用"
+- created_at: datetime
+- updated_at: datetime
+```
+
+#### **multiple_choice_questions** (選択式問題)
+```ruby
+- id: bigint (primary key)
+- question_id: bigint (foreign key)
+- options: json # ["選択肢1", "選択肢2", "選択肢3", "選択肢4"]
+- correct_answer: integer # 0-3 (正解のインデックス)
+- created_at: datetime
+- updated_at: datetime
+```
+
+#### **essay_questions** (記述式問題)
+```ruby
+- id: bigint (primary key)
+- question_id: bigint (foreign key)
+- answer_criteria: json # AI判定用の基準
+- sample_answers: json # 模範解答例
+- evaluation_rubric: json # 評価観点
+- min_length: integer # 最小文字数
+- max_length: integer # 最大文字数
+- created_at: datetime
+- updated_at: datetime
+```
+
+### モデル関係
+
+```ruby
+# ExamSession 1:N Questions
+class ExamSession < ApplicationRecord
+  has_many :questions, dependent: :destroy
+end
+
+# Question (親モデル)
+class Question < ApplicationRecord
+  belongs_to :exam_session
+  has_one :multiple_choice_question, dependent: :destroy
+  has_one :essay_question, dependent: :destroy
+  
+  def detail
+    case question_type
+    when 'multiple_choice'
+      multiple_choice_question
+    when 'essay'
+      essay_question
+    end
+  end
+end
+
+# 選択式問題
+class MultipleChoiceQuestion < ApplicationRecord
+  belongs_to :question
+  validates :options, length: { is: 4 }
+  validates :correct_answer, inclusion: { in: 0..3 }
+end
+
+# 記述式問題（AI判定対応）
+class EssayQuestion < ApplicationRecord
+  belongs_to :question
+  validates :min_length, :max_length, numericality: { greater_than: 0 }
+end
+```
+
+### データ例
+
+#### **選択式問題**
+```json
+{
+  "question": {
+    "text": "データベースの正規化について...",
+    "question_type": "multiple_choice",
+    "category": "データベース",
+    "difficulty": "標準"
+  },
+  "multiple_choice_question": {
+    "options": [
+      "第1正規形は、繰り返し項目を排除した形である",
+      "第2正規形は、部分関数従属を排除した形である",
+      "第3正規形は、推移関数従属を排除した形である",
+      "すべての正規形において、データの冗長性は完全に排除される"
+    ],
+    "correct_answer": 2
+  }
+}
+```
+
+#### **記述式問題**
+```json
+{
+  "question": {
+    "text": "第三正規形について説明せよ",
+    "question_type": "essay",
+    "category": "データベース", 
+    "difficulty": "応用"
+  },
+  "essay_question": {
+    "answer_criteria": {
+      "required_keywords": ["正規化", "第三正規形", "推移関数従属"],
+      "prohibited_keywords": ["非正規化"],
+      "scoring_weights": {
+        "concept_understanding": 0.4,
+        "technical_accuracy": 0.3,
+        "explanation_clarity": 0.3
+      }
+    },
+    "sample_answers": {
+      "perfect_answer": "第三正規形は、第二正規形の条件を満たしつつ、推移関数従属を排除した形である...",
+      "good_answers": [
+        "正規化の第三段階で、推移関数従属をなくすことで...",
+        "第三正規形では、非キー属性が主キー以外の属性に依存しない..."
+      ]
+    },
+    "evaluation_rubric": {
+      "criteria": [
+        {
+          "name": "concept_understanding",
+          "description": "正規化の概念理解"
+        }
+      ]
+    },
+    "min_length": 50,
+    "max_length": 300
+  }
+}
+```
+
+### 設計のメリット
+
+1. **型安全性**: 選択式では`options`が必須、記述式では`answer_criteria`が必須
+2. **拡張性**: 新しい問題タイプを追加しやすい
+3. **保守性**: 各問題タイプの責務が明確に分離
+4. **AI対応**: 記述式問題でのAI判定に必要な情報を構造化して保存
