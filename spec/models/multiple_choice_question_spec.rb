@@ -21,18 +21,18 @@ RSpec.describe MultipleChoiceQuestion, type: :model do
 
     describe 'options_must_be_array_of_four' do
       it 'is valid with 4 options' do
-        multiple_choice_question.options = ["A", "B", "C", "D"]
+        multiple_choice_question.options = [ "A", "B", "C", "D" ]
         expect(multiple_choice_question).to be_valid
       end
 
       it 'is invalid with less than 4 options' do
-        multiple_choice_question.options = ["A", "B", "C"]
+        multiple_choice_question.options = [ "A", "B", "C" ]
         expect(multiple_choice_question).not_to be_valid
         expect(multiple_choice_question.errors[:options]).to include("must be an array of 4 options")
       end
 
       it 'is invalid with more than 4 options' do
-        multiple_choice_question.options = ["A", "B", "C", "D", "E"]
+        multiple_choice_question.options = [ "A", "B", "C", "D", "E" ]
         expect(multiple_choice_question).not_to be_valid
         expect(multiple_choice_question.errors[:options]).to include("must be an array of 4 options")
       end
@@ -83,8 +83,8 @@ RSpec.describe MultipleChoiceQuestion, type: :model do
 
   describe 'instance methods' do
     let(:multiple_choice_question) do
-      create(:multiple_choice_question, 
-        options: ["Option A", "Option B", "Option C", "Option D"],
+      create(:multiple_choice_question,
+        options: [ "Option A", "Option B", "Option C", "Option D" ],
         correct_answer: 2)
     end
 

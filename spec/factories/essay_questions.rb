@@ -3,8 +3,8 @@ FactoryBot.define do
     association :question, question_type: QuestionTypes::ESSAY
     answer_criteria do
       {
-        required_keywords: ["正規化", "第三正規形", "推移関数従属"],
-        prohibited_keywords: ["非正規化"],
+        required_keywords: [ "正規化", "第三正規形", "推移関数従属" ],
+        prohibited_keywords: [ "非正規化" ],
         scoring_weights: {
           concept_understanding: 0.4,
           technical_accuracy: 0.3,
@@ -46,8 +46,8 @@ FactoryBot.define do
       association :question, question_type: QuestionTypes::ESSAY, category: QuestionCategories::NETWORK
       answer_criteria do
         {
-          required_keywords: ["TCP", "UDP", "プロトコル"],
-          prohibited_keywords: ["間違い"],
+          required_keywords: [ "TCP", "UDP", "プロトコル" ],
+          prohibited_keywords: [ "間違い" ],
           scoring_weights: {
             concept_understanding: 0.5,
             technical_accuracy: 0.3,
@@ -70,8 +70,8 @@ FactoryBot.define do
       association :question, question_type: QuestionTypes::ESSAY, category: QuestionCategories::SECURITY
       answer_criteria do
         {
-          required_keywords: ["暗号化", "セキュリティ"],
-          prohibited_keywords: ["脆弱"],
+          required_keywords: [ "暗号化", "セキュリティ" ],
+          prohibited_keywords: [ "脆弱" ],
           scoring_weights: {
             concept_understanding: 0.4,
             technical_accuracy: 0.4,

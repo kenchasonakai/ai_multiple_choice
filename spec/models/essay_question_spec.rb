@@ -43,7 +43,7 @@ RSpec.describe EssayQuestion, type: :model do
 
     describe 'answer_criteria_must_be_hash' do
       it 'is valid when answer_criteria is a hash' do
-        essay_question.answer_criteria = { required_keywords: ["test"] }
+        essay_question.answer_criteria = { required_keywords: [ "test" ] }
         expect(essay_question).to be_valid
       end
 
@@ -54,7 +54,7 @@ RSpec.describe EssayQuestion, type: :model do
       end
 
       it 'is invalid when answer_criteria is an array' do
-        essay_question.answer_criteria = ["not", "a", "hash"]
+        essay_question.answer_criteria = [ "not", "a", "hash" ]
         expect(essay_question).not_to be_valid
         expect(essay_question.errors[:answer_criteria]).to include("must be a hash")
       end
@@ -73,7 +73,7 @@ RSpec.describe EssayQuestion, type: :model do
       end
 
       it 'is invalid when sample_answers is an array' do
-        essay_question.sample_answers = ["not", "a", "hash"]
+        essay_question.sample_answers = [ "not", "a", "hash" ]
         expect(essay_question).not_to be_valid
         expect(essay_question.errors[:sample_answers]).to include("must be a hash")
       end
