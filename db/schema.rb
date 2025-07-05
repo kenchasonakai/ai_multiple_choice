@@ -53,12 +53,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_05_015424) do
     t.text "text", null: false
     t.string "question_type", null: false
     t.string "category", null: false
-    t.string "difficulty", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category", "difficulty"], name: "index_questions_on_category_and_difficulty"
     t.index ["category"], name: "index_questions_on_category"
-    t.index ["difficulty"], name: "index_questions_on_difficulty"
     t.index ["exam_session_id"], name: "index_questions_on_exam_session_id"
     t.index ["question_type"], name: "index_questions_on_question_type"
   end
