@@ -2,12 +2,14 @@ class Api::ExamSessionsController < ApplicationController
   before_action :set_exam_session, only: [:show]
 
   def index
-    @exam_sessions = ExamSession.all.order(:year, :period, :subject_slug)
-    render json: @exam_sessions.map { |session| ExamSessionListResource.new(session).serializable_hash }
+    @exam_sessions = ExamSession.includes(:questions).order(:year, :period, :subject_slug)
+    data = @exam_sessions.map { |session| ExamSessionListResource.new(session).serializable_hash }
+    render_success(data)
   end
 
   def show
-    render json: ExamSessionResource.new(@exam_session).serializable_hash
+    data = ExamSessionResource.new(@exam_session).serializable_hash
+    render_success(data)
   end
 
   private
@@ -17,12 +19,7 @@ class Api::ExamSessionsController < ApplicationController
                                .find_by(slug: params[:slug])
 
     if @exam_session.nil?
-      render json: {
-        error: {
-          code: 'not_found',
-          message: "Exam session not found: #{params[:slug]}"
-        }
-      }, status: :not_found
+      render_error("Exam session not found: #{params[:slug]}", :not_found)
     end
   end
 end
