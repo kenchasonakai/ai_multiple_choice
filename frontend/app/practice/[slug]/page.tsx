@@ -1,35 +1,16 @@
 import { SlugPageClient } from "./slug-page-client"
 
-// 静的生成用のパラメータをAPIから取得
+// 静的生成用のパラメータを定義
+// TODO: Rails APIデプロイ後にAPI連携に変更予定
 export async function generateStaticParams() {
-  try {
-    // 本番環境とビルド時のAPIエンドポイント
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
-    const response = await fetch(`${apiUrl}/api/exam_sessions`)
-    
-    if (!response.ok) {
-      throw new Error(`API request failed: ${response.status} ${response.statusText}`)
-    }
-    
-    const data = await response.json()
-    
-    if (!data.success) {
-      throw new Error(`API returned error: ${data.message}`)
-    }
-    
-    const sessions = data.data
-    
-    if (!Array.isArray(sessions) || sessions.length === 0) {
-      throw new Error('No exam sessions found in API response')
-    }
-    
-    return sessions.map((session: any) => ({
-      slug: session.slug
-    }))
-  } catch (error) {
-    console.error('Failed to fetch exam sessions during build:', error)
-    throw error // ビルドを失敗させる
-  }
+  // 現在は静的な値を使用（API未デプロイのため）
+  console.log('Using static exam session slugs (API not deployed yet)')
+  
+  return [
+    { slug: '2023-spring-subject-a' },
+    { slug: '2023-spring-subject-b' },
+    { slug: '2022-spring-subject-a' },
+  ]
 }
 
 interface SlugPageProps {
