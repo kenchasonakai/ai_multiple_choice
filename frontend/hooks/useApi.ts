@@ -1,7 +1,11 @@
 // API hook for data fetching
 import { useState, useEffect } from 'react';
 import { apiClient, ApiResponse, ApiError } from '@/services/api/client';
-import { LoadingState } from '@/types';
+
+interface LoadingState {
+  status: 'idle' | 'loading' | 'success' | 'error';
+  error?: string;
+}
 
 interface UseApiOptions<T> {
   onSuccess?: (data: T) => void;

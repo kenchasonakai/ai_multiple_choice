@@ -79,12 +79,14 @@ export function ExamContent() {
 
           {/* 問題カード */}
           <QuestionCard question={currentQuestion} isSubmitted={isCurrentSubmitted}>
-            <QuestionOptions
-              options={currentQuestion.options}
-              selectedAnswer={selectedAnswer}
-              onAnswerChange={handleAnswerChange}
-              isSubmitted={isCurrentSubmitted}
-            />
+            {currentQuestion.question_type === 'multiple_choice' && currentQuestion.multiple_choice_question && (
+              <QuestionOptions
+                options={currentQuestion.multiple_choice_question.options}
+                selectedAnswer={selectedAnswer}
+                onAnswerChange={handleAnswerChange}
+                isSubmitted={isCurrentSubmitted}
+              />
+            )}
             
             <ReasoningInput
               reasoning={currentReasoning}

@@ -5,7 +5,7 @@
  * - エラーハンドリング
  */
 
-import { renderHook, waitFor } from '@testing-library/react'
+import { renderHook, waitFor, act } from '@testing-library/react'
 import { useExamSessions } from '@/hooks/useExamSessions'
 
 // API関数をモック
@@ -105,7 +105,9 @@ describe('useExamSessions Hook', () => {
       expect(mockFetchExamSessions).toHaveBeenCalledTimes(1)
       
       // refetch実行
-      result.current.refetch()
+      await act(async () => {
+        result.current.refetch()
+      })
       
       await waitFor(() => {
         expect(mockFetchExamSessions).toHaveBeenCalledTimes(2)

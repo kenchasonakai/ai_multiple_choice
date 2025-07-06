@@ -44,12 +44,14 @@ export function SubjectPageContent({
         
         <div className="max-w-4xl mx-auto">
           <QuestionCard question={question} isSubmitted={isSubmitted}>
-            <QuestionOptions
-              options={question.options}
-              selectedAnswer={selectedAnswer}
-              onAnswerChange={setSelectedAnswer}
-              isSubmitted={isSubmitted}
-            />
+            {question.question_type === 'multiple_choice' && question.multiple_choice_question && (
+              <QuestionOptions
+                options={question.multiple_choice_question.options}
+                selectedAnswer={selectedAnswer}
+                onAnswerChange={setSelectedAnswer}
+                isSubmitted={isSubmitted}
+              />
+            )}
             
             <ReasoningInput
               reasoning={reasoning}

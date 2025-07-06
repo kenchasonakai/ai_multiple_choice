@@ -1,9 +1,23 @@
+export interface MultipleChoiceQuestion {
+  options: string[]
+  correct_answer: number
+}
+
+export interface EssayQuestion {
+  answer_criteria: string
+  sample_answers: string[]
+  evaluation_rubric: string
+  min_length: number
+  max_length: number
+}
+
 export interface Question {
   id: number
   text: string
-  options: string[]
-  correctAnswer: number
+  question_type: 'multiple_choice' | 'essay'
   category: string
+  multiple_choice_question: MultipleChoiceQuestion | null
+  essay_question: EssayQuestion | null
 }
 
 export interface SubjectInfo {

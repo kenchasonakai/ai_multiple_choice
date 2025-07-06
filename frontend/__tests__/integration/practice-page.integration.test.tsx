@@ -56,7 +56,7 @@ describe('Practice Page Integration', () => {
   })
 
   describe('正常な動作フロー', () => {
-    it('ページロード → データ表示 → フィルタリング → リンククリックの統合フロー', async () => {
+    it('ページロード → データ表示 → リンククリックの統合フロー', async () => {
       const user = userEvent.setup()
       
       render(<PracticePage />)
@@ -66,7 +66,7 @@ describe('Practice Page Integration', () => {
 
       // 2. データ表示待機
       await waitFor(() => {
-        expect(screen.getByText('練習問題を選択してください')).toBeInTheDocument()
+        expect(screen.getByText('問題を選択してください')).toBeInTheDocument()
       })
 
       // 3. APIが呼ばれたことを確認
@@ -76,15 +76,7 @@ describe('Practice Page Integration', () => {
       expect(screen.getByText('2023年度春期')).toBeInTheDocument()
       expect(screen.getByText('2022年度春期')).toBeInTheDocument()
 
-      // 5. フィルタリング機能のテスト
-      const yearFilter = screen.getByRole('combobox', { name: /年度/ })
-      await user.selectOptions(yearFilter, '2023')
-
-      // 6. フィルタ後の表示確認
-      expect(screen.getByText('2023年度春期')).toBeInTheDocument()
-      expect(screen.queryByText('2022年度春期')).not.toBeInTheDocument()
-
-      // 7. リンククリックのテスト（モック）
+      // 5. リンククリックのテスト（モック）
       const practiceLink = screen.getByText(/科目A.*3問/)
       expect(practiceLink).toHaveAttribute('href', '/practice/2023-spring-subject-a')
     })

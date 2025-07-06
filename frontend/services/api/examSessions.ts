@@ -2,12 +2,26 @@ import { apiClient } from './client'
 import { Question, ExamSession, ExamSessionListItem } from '@/types/exam'
 
 // API用の型定義
+interface ApiMultipleChoiceQuestion {
+  options: string[]
+  correct_answer: number
+}
+
+interface ApiEssayQuestion {
+  answer_criteria: string
+  sample_answers: string[]
+  evaluation_rubric: string
+  min_length: number
+  max_length: number
+}
+
 interface ApiQuestion {
   id: number
   text: string
-  options: string[]
-  correct_answer: number
+  question_type: 'multiple_choice' | 'essay'
   category: string
+  multiple_choice_question: ApiMultipleChoiceQuestion | null
+  essay_question: ApiEssayQuestion | null
 }
 
 interface ApiExamSession {
@@ -58,9 +72,10 @@ export async function fetchExamSession(slug: string): Promise<ExamSession> {
       questions: data.questions.map((q: ApiQuestion): Question => ({
         id: q.id,
         text: q.text,
-        options: q.options,
-        correctAnswer: q.correct_answer, // API: correct_answer -> Frontend: correctAnswer
-        category: q.category
+        question_type: q.question_type,
+        category: q.category,
+        multiple_choice_question: q.multiple_choice_question,
+        essay_question: q.essay_question
       }))
     }
   } catch (error) {
