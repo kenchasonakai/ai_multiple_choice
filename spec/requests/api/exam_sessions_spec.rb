@@ -42,13 +42,20 @@ RSpec.describe "Api::ExamSessions", type: :request do
         question = questions.first
         expect(question).to have_key("id")
         expect(question).to have_key("text")
+        expect(question).to have_key("question_type")
         expect(question).to have_key("category")
-        expect(question).to have_key("options")
-        expect(question).to have_key("correct_answer")
+        expect(question).to have_key("multiple_choice_question")
+        expect(question).to have_key("essay_question")
 
-        expect(question["options"]).to be_an(Array)
-        expect(question["options"].length).to eq(4)
-        expect(question["correct_answer"]).to be_between(0, 3)
+        # Multiple choice question structure
+        mcq = question["multiple_choice_question"]
+        expect(mcq).to be_present
+        expect(mcq["options"]).to be_an(Array)
+        expect(mcq["options"].length).to eq(4)
+        expect(mcq["correct_answer"]).to be_between(0, 3)
+
+        # Essay question should be null for multiple choice
+        expect(question["essay_question"]).to be_nil
       end
 
       it "returns questions with correct categories" do
@@ -66,8 +73,11 @@ RSpec.describe "Api::ExamSessions", type: :request do
         questions = json["data"]["questions"]
 
         questions.each do |question|
-          expect(question["options"]).to be_present
-          expect(question["correct_answer"]).to be_present
+          expect(question["question_type"]).to eq("multiple_choice")
+          expect(question["multiple_choice_question"]).to be_present
+          expect(question["multiple_choice_question"]["options"]).to be_present
+          expect(question["multiple_choice_question"]["correct_answer"]).to be_present
+          expect(question["essay_question"]).to be_nil
         end
       end
     end

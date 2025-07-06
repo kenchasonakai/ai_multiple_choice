@@ -3,7 +3,7 @@ class Api::ExamSessionsController < ApplicationController
 
   def index
     @exam_sessions = ExamSession.includes(:questions).order(:year, :period, :subject_slug)
-    data = @exam_sessions.map { |session| ExamSessionListResource.new(session).serializable_hash }
+    data = ExamSessionListResource.new(@exam_sessions).serializable_hash
     render_success(data)
   end
 
