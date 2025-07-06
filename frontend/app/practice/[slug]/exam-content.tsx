@@ -64,10 +64,9 @@ export function ExamContent() {
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-7xl mx-auto">
         <Header 
-          subtitle={`${examSession?.period} ${examSession?.subject.name} (全${totalQuestions}問)`}
+          subtitle={`${examSession?.period} ${examSession?.subject_name} (全${totalQuestions}問)`}
           badges={[
-            { label: currentQuestion.category, variant: "secondary" },
-            { label: currentQuestion.difficulty, variant: "outline" }
+            { label: currentQuestion.category, variant: "secondary" }
           ]}
         />
         

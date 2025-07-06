@@ -38,8 +38,7 @@ export function SubjectPageContent({
         <Header 
           subtitle={`${periodDisplay} ${subjectDisplay.name} (全${totalQuestions}問)`}
           badges={[
-            { label: question.category, variant: "secondary" },
-            { label: question.difficulty, variant: "outline" }
+            { label: question.category, variant: "secondary" }
           ]}
         />
         

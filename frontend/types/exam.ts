@@ -4,7 +4,6 @@ export interface Question {
   options: string[]
   correctAnswer: number
   category: string
-  difficulty: string
 }
 
 export interface SubjectInfo {
@@ -17,7 +16,19 @@ export interface ExamSession {
   slug: string
   year: string
   period: string
-  subject: SubjectInfo
+  subject_slug: string
+  subject_name: string
+  subject_description: string
   questions: Question[]
+}
+
+export interface ExamSessionListItem {
+  slug: string
+  year: string
+  period: string
+  subject_slug: string
+  subject_name: string
+  subject_description: string
+  question_count: number
 }
 
