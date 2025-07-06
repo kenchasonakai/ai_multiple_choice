@@ -7,7 +7,6 @@ import { useMemo } from "react"
 
 export default function PracticePage() {
   const { sessions: examSessions, loading, error, refetch } = useExamSessions()
-  // セッションを期別にグループ化するため、フィルタリングは削除してexamSessionsを直接使用
 
   // 期別にグループ化
   const periods = useMemo(() => {
@@ -24,7 +23,7 @@ export default function PracticePage() {
       return acc
     }, {} as Record<string, {
       period: string
-      sessions: typeof filteredSessions
+      sessions: typeof examSessions
     }>)
 
     return Object.values(groupedSessions)
