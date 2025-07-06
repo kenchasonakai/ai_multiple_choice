@@ -38,19 +38,20 @@ export function SubjectPageContent({
         <Header 
           subtitle={`${periodDisplay} ${subjectDisplay.name} (全${totalQuestions}問)`}
           badges={[
-            { label: question.category, variant: "secondary" },
-            { label: question.difficulty, variant: "outline" }
+            { label: question.category, variant: "secondary" }
           ]}
         />
         
         <div className="max-w-4xl mx-auto">
           <QuestionCard question={question} isSubmitted={isSubmitted}>
-            <QuestionOptions
-              options={question.options}
-              selectedAnswer={selectedAnswer}
-              onAnswerChange={setSelectedAnswer}
-              isSubmitted={isSubmitted}
-            />
+            {question.question_type === 'multiple_choice' && question.multiple_choice_question && (
+              <QuestionOptions
+                options={question.multiple_choice_question.options}
+                selectedAnswer={selectedAnswer}
+                onAnswerChange={setSelectedAnswer}
+                isSubmitted={isSubmitted}
+              />
+            )}
             
             <ReasoningInput
               reasoning={reasoning}

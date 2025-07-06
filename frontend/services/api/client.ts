@@ -1,7 +1,7 @@
 // API Client configuration
 import { API_BASE_URL } from '@/lib/constants';
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   data: T;
   message?: string;
   success: boolean;
@@ -46,6 +46,7 @@ export class ApiClient {
         } as ApiError;
       }
 
+      // Rails APIは既にApiResponse形式で返すので、そのまま返す
       return data;
     } catch (error) {
       if (error instanceof Error) {
@@ -62,7 +63,7 @@ export class ApiClient {
     return this.request<T>(endpoint, { ...options, method: 'GET' });
   }
 
-  async post<T>(endpoint: string, data?: any, options?: RequestInit): Promise<ApiResponse<T>> {
+  async post<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       ...options,
       method: 'POST',
@@ -70,7 +71,7 @@ export class ApiClient {
     });
   }
 
-  async put<T>(endpoint: string, data?: any, options?: RequestInit): Promise<ApiResponse<T>> {
+  async put<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       ...options,
       method: 'PUT',
