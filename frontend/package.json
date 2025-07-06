@@ -13,7 +13,6 @@
     "test:ci": "jest --ci --coverage --watchAll=false"
   },
   "dependencies": {
-    "@netlify/plugin-nextjs": "^5.11.4",
     "clsx": "^2.1.1",
     "lucide-react": "^0.522.0",
     "next": "15.3.3",
