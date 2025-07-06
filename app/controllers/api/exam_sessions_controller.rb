@@ -1,5 +1,5 @@
 class Api::ExamSessionsController < ApplicationController
-  before_action :set_exam_session, only: [:show]
+  before_action :set_exam_session, only: [ :show ]
 
   def index
     @exam_sessions = ExamSession.includes(:questions).order(:year, :period, :subject_slug)
@@ -15,7 +15,7 @@ class Api::ExamSessionsController < ApplicationController
   private
 
   def set_exam_session
-    @exam_session = ExamSession.includes(questions: [:multiple_choice_question, :essay_question])
+    @exam_session = ExamSession.includes(questions: [ :multiple_choice_question, :essay_question ])
                                .find_by(slug: params[:slug])
 
     if @exam_session.nil?
